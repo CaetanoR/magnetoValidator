@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static com.xmen.mutants.controller.RequesterController.HUMANS;
+import static com.xmen.mutants.controller.RequesterController.MUTANTS;
+
 @Service
 public class RequestService {
 
@@ -35,8 +38,8 @@ public class RequestService {
                 humans++;
             }
         }
-        mutantHumanRequests.put("Humans", humans);
-        mutantHumanRequests.put("Mutants", mutants);
+        mutantHumanRequests.put(HUMANS, humans);
+        mutantHumanRequests.put(MUTANTS, mutants);
         return mutantHumanRequests;
     }
 }

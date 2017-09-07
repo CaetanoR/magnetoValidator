@@ -1,0 +1,48 @@
+#%RAML 0.8
+title: magnetoValidator
+version: 1.0.0-SNAPSHOT
+baseUri: http://localhost:8080/api
+documentation:
+  - title: About
+    content: |
+      API Description
+/mutant: 
+  displayName: Mutant
+    #description: |
+    #  Check whether DNA data matches a mutant's.
+  post:
+    description: Validates DNA data.
+    body: 
+      application/json:
+        example: |
+          {
+            "dna": 
+            [
+            "ATGCGA",
+            "CAGTGC",
+            "TTATGT",
+            "AGAAGG",
+            "CCCCTA",
+            "TCACTG"
+            ]
+          }
+    responses:
+      200:
+        description: OK
+      403:
+        description: Forbidden
+/stats:
+  displayName: Get DNA Statistics
+  get:
+    description: Returns the total amount of mutants and humans that requested the /mutants resource and a ratio of mutants/humans.
+    responses:
+      200:
+        description: JSON with DNA verification statistics.
+        body: 
+          application/json:
+            example: |
+              {
+                "count_mutant_dna":40,
+                "count_human_dna":100,
+                "ratio":0.4
+              }

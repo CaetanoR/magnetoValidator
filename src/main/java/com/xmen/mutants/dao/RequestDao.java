@@ -16,52 +16,61 @@ import java.util.List;
 public class RequestDao {
 
     private static final Logger logger = LoggerFactory.getLogger(RequestDao.class);
+    private static final String SUCCESSFUL = "%s successful";
+    private static final String FAILED = "%s failed";
+    private static final String OPERATION_ON_INSTANCE = "%s Request instance";
+    private static final String SAVE = "save";
+    private static final String SAVING = "saving";
+    private static final String MERGE = "merge";
+    private static final String UPDATING = "updating";
+    private static final String DELETE = "delete";
+    private static final String DELETING = "deleting";
 
     @PersistenceContext
     private EntityManager entityManager;
 
     public void create(Request request) {
-        logger.debug("saving Request instance");
+        logger.debug(String.format(OPERATION_ON_INSTANCE, SAVING));
         try {
             entityManager.persist(request);
-            logger.debug("save successful");
+            logger.debug(String.format(SUCCESSFUL, SAVE));
         } catch (RuntimeException re) {
-            logger.error("save failed", re);
+            logger.error(FAILED, SAVE);
             throw re;
         }
     }
 
     public void update(Request request) {
-        logger.debug("updating Request instance");
+        logger.debug(String.format(OPERATION_ON_INSTANCE, UPDATING));
         try {
             entityManager.merge(request);
-            logger.debug("merge successful");
+            logger.debug(String.format(SUCCESSFUL, MERGE));
         } catch (RuntimeException re) {
-            logger.error("merge failed", re);
+            logger.error(String.format(FAILED, MERGE), re);
             throw re;
         }
     }
 
     @SuppressWarnings("unchecked")
     public void delete(Request request) {
-        logger.debug("deleting Request instance");
+        logger.debug(String.format(OPERATION_ON_INSTANCE, DELETING));
         try {
             request = entityManager.merge(request);
             entityManager.remove(request);
-            logger.debug("delete successful");
+            logger.debug(String.format(SUCCESSFUL, DELETE));
         } catch (RuntimeException re) {
-            logger.error("delete failed", re);
+            logger.error(String.format(FAILED, DELETE), re);
             throw re;
         }
     }
 
     public void deleteById(Integer id) {
-        logger.debug("deleting Request instance");
+        logger.debug(String.format(OPERATION_ON_INSTANCE, DELETING));
         try {
             entityManager.remove(entityManager.getReference(Request.class, id));
-            logger.debug("delete successful");
+            logger.debug(String.format(SUCCESSFUL, DELETE));
         } catch (RuntimeException re) {
-            logger.error("delete failed", re);
+            logger.error(String.format(FAILED, DELETE), re);
             throw re;
         }
     }

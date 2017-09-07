@@ -1,5 +1,11 @@
 package com.xmen.mutants.dto;
 
+/**
+ * Data Access Object representing the Json output from the Stats service.
+ *
+ * @author Caetano Riverón
+ */
+
 public class StatsDto {
 
     private Double count_mutant_dna;

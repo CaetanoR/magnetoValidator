@@ -7,6 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Table containing the requesters.
+ *
+ * @author Caetano Riverón
+ */
+
 @Entity
 @Table(name = "requests")
 public class Request implements java.io.Serializable {
