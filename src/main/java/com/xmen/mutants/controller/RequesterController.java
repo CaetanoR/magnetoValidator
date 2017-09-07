@@ -1,8 +1,14 @@
-package app;
+package com.xmen.mutants.controller;
 
+import com.xmen.mutants.dto.RequesterDto;
+import com.xmen.mutants.dto.StatsDto;
+import com.xmen.mutants.exception.ForbiddenException;
+import com.xmen.mutants.model.Request;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.xmen.mutants.service.RequestService;
 
 import java.util.List;
 import java.util.Map;
@@ -10,13 +16,29 @@ import java.util.Map;
 @RestController
 public class RequesterController {
 
+    private final static String HUMANS = "Humans";
+    private final static String MUTANTS = "Mutants";
+
+    @Autowired
+    private RequestService requestService;
+
     @RequestMapping("/mutants")
     public RequesterDto requester(@RequestBody Map<String, List<String>> dna) {
         List<String> dnaSequence = dna.get("dna");
         if(!isMutante(dnaSequence.toArray(new String[dnaSequence.size()]))) {
+            requestService.addRequest(new Request(false));
             throw new ForbiddenException();
         }
+        requestService.addRequest(new Request(true));
         return null;
+    }
+
+    @RequestMapping("/stats")
+    public StatsDto stats() {
+        Map<String, Double> stats = requestService.getMutantAndHumanRequests();
+        Double humans = stats.get(HUMANS);
+        Double mutants = stats.get(MUTANTS);
+        return new StatsDto(mutants, humans, humans != 0 ? (double) (mutants / humans): 0);
     }
 
     private boolean isMutante(String[] adn) {

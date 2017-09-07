@@ -1,4 +1,4 @@
-package app;
+package com.xmen.mutants.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

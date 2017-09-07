@@ -1,4 +1,4 @@
-package app;
+package com.xmen.mutants.dto;
 
 import java.util.List;
 
