@@ -31,9 +31,6 @@ Caetano Riverón
     "ratio": 2
 }
 ```
-* Get Book by Name
-* Update Book
-* Delete Book
 
 ## Usage
 
